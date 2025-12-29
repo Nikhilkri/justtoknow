@@ -3,127 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronHold | Official Minecraft Server</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>NEXUS REALMS | Elite Minecraft Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
     <style>
-        /* --- VARIABLES & RESET --- */
+        /* --- HIGH END VARIABLES --- */
         :root {
-            --primary: #FFD700; /* Gold */
-            --accent: #ff4757;  /* Red for action */
-            --dark-bg: #121212;
-            --card-bg: rgba(30, 30, 30, 0.8);
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --bg-deep: #050505;
+            --bg-surface: #121212;
+            --primary: #6366f1; /* Indigo */
+            --accent: #00d4ff;  /* Cyan Neon */
+            --glow: 0 0 20px rgba(0, 212, 255, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --font-head: 'Rajdhani', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
+            cursor: default;
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            color: white;
+            font-family: var(--font-body);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); }
-            100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-        }
-
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, visibility;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
+        /* --- BACKGROUND PARTICLES CANVAS --- */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
         }
 
         /* --- NAVIGATION --- */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(18, 18, 18, 0.8);
+            padding: 30px 60px;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--primary);
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
+        .nav-items a {
+            color: #ccc;
             text-decoration: none;
-            color: var(--text-main);
+            margin-left: 40px;
             font-weight: 500;
-            transition: var(--transition);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
             position: relative;
+            cursor: pointer;
         }
 
-        .nav-links a::after {
+        .nav-items a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        .cta-btn {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-head);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: var(--accent);
+            transition: 0.4s;
+            z-index: -1;
+        }
+
+        .cta-btn:hover::before {
             left: 0;
-            background-color: var(--primary);
-            transition: var(--transition);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .store-btn {
-            background: var(--primary);
+        .cta-btn:hover {
             color: #000;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .store-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 0 20px var(--accent);
         }
 
         /* --- HERO SECTION --- */
-        header {
+        .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -131,311 +134,293 @@
             align-items: center;
             text-align: center;
             position: relative;
-            /* Replace this URL with your server screenshot */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            background-attachment: fixed; /* Parallax effect */
         }
 
-        header h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: 5rem;
+            line-height: 1;
             text-transform: uppercase;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            animation: float 6s ease-in-out infinite;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        header p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 600px;
+        .hero h1 span {
+            color: var(--accent);
         }
 
-        /* --- SERVER IP WIDGET --- */
-        .ip-widget {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .server-ip-box {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 20px 40px;
+            border-radius: 4px; /* Sharp corners for modern look */
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             cursor: pointer;
-            transition: var(--transition);
-            animation: pulse-glow 3s infinite;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1.2s ease-out;
         }
 
-        .ip-widget:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.02);
+        .server-ip-box:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
         }
 
         .ip-text {
             font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        .copy-hint {
-            font-size: 0.8rem;
-            background: var(--accent);
-            padding: 5px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            font-weight: bold;
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 2s infinite;
         }
 
-        /* --- FEATURES SECTION --- */
-        .features {
-            padding: 100px 50px;
+        /* --- CONTENT GRID (TILT CARDS) --- */
+        .grid-section {
+            padding: 100px 10%;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        .feature-card {
-            background: var(--card-bg);
+        .card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             padding: 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            transition: var(--transition);
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s; /* Very fast for mouse movement */
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
+        .card-content {
+            transform: translateZ(20px); /* Pops content out */
         }
 
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
+        .card h3 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
             margin-bottom: 15px;
-            font-size: 1.5rem;
+            color: var(--accent);
         }
 
-        .feature-card p {
-            color: var(--text-muted);
-            line-height: 1.6;
+        .card p {
+            color: #888;
+            font-size: 0.95rem;
         }
 
-        /* --- ABOUT SECTION --- */
-        .about {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 50px;
-            background: #0f0f0f;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: -20px 20px 0 var(--primary);
-        }
-
-        .about-content {
-            flex: 1;
-            min-width: 300px;
-            max-width: 600px;
-        }
-
-        .about-content h2 {
-            font-size: 3rem;
+        .card-icon {
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .about-content p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            line-height: 1.8;
-            font-size: 1.1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* --- FOOTER --- */
         footer {
             background: #000;
-            padding: 50px;
+            padding: 50px 0;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
+        
+        footer p { color: #555; font-size: 0.8rem; }
 
-        .social-icons {
-            margin-bottom: 20px;
-        }
+        /* --- UTILITY & ANIMATIONS --- */
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .social-icons a {
-            color: var(--text-main);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            color: var(--primary);
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* --- TOAST NOTIFICATION --- */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: var(--primary);
+        /* Copied Notification */
+        .copied-tooltip {
+            position: absolute;
+            background: var(--accent);
             color: #000;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 1001;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
+            padding: 5px 10px;
+            font-size: 0.8rem;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
         }
+        .copied-tooltip.active { opacity: 1; top: -50px; }
 
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
-
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* Mobile */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Simplified for mobile */
-            .about { padding: 50px 20px; }
-            .feature-card { padding: 30px 20px; }
+            .hero h1 { font-size: 3rem; }
+            nav { padding: 20px; }
+            .nav-items { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <canvas id="canvas-bg"></canvas>
+
     <nav>
-        <div class="logo">IronHold</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="#community">Community</a>
+        <div class="logo">NEXUS<span style="color:var(--accent)">REALMS</span></div>
+        <div class="nav-items">
+            <a href="#">Home</a>
+            <a href="#">Wiki</a>
+            <a href="#">Bans</a>
+            <a href="#">Vote</a>
         </div>
-        <a href="#" class="store-btn">STORE <i class="fas fa-shopping-cart"></i></a>
+        <button class="cta-btn">Store</button>
     </nav>
 
-    <header id="home">
-        <h1>Welcome to IronHold</h1>
-        <p>The ultimate survival experience. Custom enchants, economy, and a friendly community await you.</p>
+    <div class="hero">
+        <h1>Conquer The <br><span>Unknown</span></h1>
+        <p style="color: #888; max-width: 500px; margin-top: 10px;">The most advanced Survival Multiplayer experience. Custom biomes, economy, and wars.</p>
         
-        <div class="ip-widget" onclick="copyIP()">
-            <i class="fas fa-gamepad" style="color: var(--primary);"></i>
-            <span class="ip-text" id="ip-address">play.ironhold.net</span>
-            <span class="copy-hint" id="copy-text">CLICK TO COPY</span>
+        <div class="server-ip-box" id="ipBox">
+            <div class="status-dot"></div>
+            <span class="ip-text">PLAY.NEXUS.NET</span>
+            <i class="far fa-copy" style="color: #666;"></i>
+            <div class="copied-tooltip" id="tooltip">COPIED!</div>
         </div>
-    </header>
+    </div>
 
-    <section id="features" class="features fade-in-section">
-        <div class="feature-card">
-            <i class="fas fa-shield-alt"></i>
-            <h3>Anti-Cheat Protection</h3>
-            <p>Our sophisticated anti-cheat ensures a fair playing field for everyone. Play without worry.</p>
+    <div class="grid-section">
+        <div class="card" id="card1">
+            <div class="card-content">
+                <i class="fas fa-meteor card-icon"></i>
+                <h3>Custom Core</h3>
+                <p>We don't use downloaded plugins. Our core is written from scratch to ensure zero lag and 100% uptime.</p>
+            </div>
         </div>
-        <div class="feature-card">
-            <i class="fas fa-gem"></i>
-            <h3>Custom Economy</h3>
-            <p>Trade with players, build your own shops, and dominate the server economy with unique items.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-users"></i>
-            <h3>Active Community</h3>
-            <p>Join thousands of other players in a non-toxic, friendly environment moderated 24/7.</p>
-        </div>
-    </section>
 
-    <section id="about" class="about fade-in-section">
-        <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1627856014759-085296e22c39?q=80&w=1000&auto=format&fit=crop" alt="Minecraft Landscape">
+        <div class="card" id="card2">
+            <div class="card-content">
+                <i class="fas fa-trophy card-icon"></i>
+                <h3>Ranked PvP</h3>
+                <p>Climb the leaderboards in our Elo-based matchmaking system. Rewards distributed weekly.</p>
+            </div>
         </div>
-        <div class="about-content">
-            <h2>Why Choose IronHold?</h2>
-            <p>We believe in quality over quantity. Our server is hosted on dedicated Ryzen hardware to ensure 20 TPS even during peak hours.</p>
-            <p>Whether you are a builder, a PVPer, or an explorer, we have custom plugins tailored to enhance your experience without losing that vanilla feel.</p>
-            <a href="#" class="store-btn">Join Discord</a>
+
+        <div class="card" id="card3">
+            <div class="card-content">
+                <i class="fas fa-dungeon card-icon"></i>
+                <h3>Dungeons</h3>
+                <p>Team up with 4 friends to raid procedurally generated dungeons with custom boss AI.</p>
+            </div>
         </div>
-    </section>
+    </div>
 
     <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-discord"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p>&copy; 2025 IronHold Server. Not affiliated with Mojang AB.</p>
+        <p>&copy; 2025 NEXUS REALMS NETWORK. NOT AFFILIATED WITH MOJANG.</p>
     </footer>
 
-    <div id="toast">IP Copied to Clipboard!</div>
-
     <script>
-        // --- 1. Copy IP Functionality ---
-        function copyIP() {
-            const ip = document.getElementById("ip-address").innerText;
-            navigator.clipboard.writeText(ip).then(() => {
-                const toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-                
-                const copyText = document.getElementById("copy-text");
-                copyText.innerText = "COPIED!";
-                setTimeout(() => { copyText.innerText = "CLICK TO COPY"; }, 2000);
-            });
+        // --- 1. PARTICLE SYSTEM (The "Pro" Background) ---
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) {
+                    this.y = height;
+                    this.x = Math.random() * width;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`; // Cyan embers
+                ctx.fill();
+            }
         }
 
-        // --- 2. Scroll Animation Observer ---
-        const observerOptions = {
-            threshold: 0.2 // Trigger when 20% of the element is visible
-        };
+        function initParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
             });
-        }, observerOptions);
+            requestAnimationFrame(animate);
+        }
+        animate();
 
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
+        // --- 2. 3D TILT EFFECT (Professional Card Interaction) ---
+        // This calculates mouse position relative to card center and rotates it
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+            });
+        });
+
+        // --- 3. COPY IP FUNCTIONALITY ---
+        const ipBox = document.getElementById('ipBox');
+        const tooltip = document.getElementById('tooltip');
+
+        ipBox.addEventListener('click', () => {
+            navigator.clipboard.writeText('PLAY.NEXUS.NET');
+            tooltip.classList.add('active');
+            setTimeout(() => {
+                tooltip.classList.remove('active');
+            }, 2000);
         });
     </script>
 </body>
 </html>
+
